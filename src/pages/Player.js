@@ -42,7 +42,11 @@ export function renderPlayer(container, slug) {
     // Sandbox: IMPORTANT to prevent "block-and-redirect" scripts from navigating the top window
     // We allow 'allow-top-navigation-by-user-activation' to potentially fix the "not available" error
     // while still blocking auto-redirects.
-    iframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-top-navigation-by-user-activation";
+    // Sandbox: IMPORTANT to prevent "block-and-redirect" scripts from navigating the top window
+    // We allow 'allow-top-navigation-by-user-activation' to potentially fix the "not available" error
+    // while still blocking auto-redirects.
+    // REMOVED 'allow-same-origin' to force opaque origin and prevent frame-busting checks
+    iframe.sandbox = "allow-scripts allow-popups allow-forms allow-pointer-lock allow-top-navigation-by-user-activation";
     iframe.allow = "autoplay; fullscreen; monetization; clipboard-write; web-share; accelerometer; magnetometer; gyroscope; display-capture";
 
     // Append to wrapper
