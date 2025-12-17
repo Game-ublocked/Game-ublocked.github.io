@@ -14,6 +14,7 @@ async function init() {
     await fetchGames();
     
     // 2. Render Layout (Sidebar + Main Content Area)
+    app.innerHTML = '';
     renderLayout(app);
     
     // 3. Initialize Router (Handles rendering the correct page into Main Content)

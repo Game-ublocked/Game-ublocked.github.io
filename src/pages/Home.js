@@ -3,6 +3,7 @@ import { renderGameCard } from '../components/GameCard.js';
 
 export function renderHome(container) {
   const games = getAllGames();
+  console.log("RenderHome: Games to render:", games);
 
   const section = document.createElement('section');
   section.className = 'home-page';
@@ -24,6 +25,9 @@ export function renderHome(container) {
     grid.appendChild(card);
   });
 
+  section.appendChild(header);
+  section.appendChild(grid);
+
   /* Search Logic */
   const searchInput = section.querySelector('input');
   searchInput.addEventListener('input', (e) => {
@@ -40,9 +44,6 @@ export function renderHome(container) {
       }
     });
   });
-
-  section.appendChild(header);
-  section.appendChild(grid);
 
   container.appendChild(section);
 }
