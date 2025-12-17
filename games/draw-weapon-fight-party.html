@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="../public/cache/data/image/options/geometry_dash.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Game Portal</title>
+  <link rel="stylesheet" href="../src/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+  <section class="player-page">
+      <div class="player-header">
+        <a href="../index.html" class="btn-back">
+          <span class="icon">arrow_back</span> Back
+        </a>
+        <h2>Draw Weapon Fight Party</h2>
+      </div>
+      <div class="game-container">
+        <div class="iframe-wrapper">
+           <iframe 
+              src="https://html5.gamedistribution.com/7409155d0a5d42408f913f58f566b8af/" 
+              id="game-frame" 
+              frameborder="0" 
+              scrolling="no" 
+              allowfullscreen 
+              referrerpolicy="no-referrer" 
+              style="width: 100%; height: 100%; background: white;"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-top-navigation-by-user-activation"
+              allow="autoplay; fullscreen; monetization; clipboard-write; web-share; accelerometer; magnetometer; gyroscope; display-capture">
+           </iframe>
+        </div>
+      </div>
+    </section>
+</div>
+  <script type="module" src="../src/main.js"></script>
+</body>
+
+</html>
