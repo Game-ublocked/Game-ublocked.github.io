@@ -40,7 +40,9 @@ export function renderPlayer(container, slug) {
     iframe.style.background = "white"; // Make it visible against black
 
     // Sandbox: IMPORTANT to prevent "block-and-redirect" scripts from navigating the top window
-    iframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock";
+    // We allow 'allow-top-navigation-by-user-activation' to potentially fix the "not available" error
+    // while still blocking auto-redirects.
+    iframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-top-navigation-by-user-activation";
     iframe.allow = "autoplay; fullscreen; monetization; clipboard-write; web-share; accelerometer; magnetometer; gyroscope; display-capture";
 
     // Append to wrapper
