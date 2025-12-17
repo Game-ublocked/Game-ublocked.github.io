@@ -27,56 +27,79 @@ with open(TEMPLATE_FILE, 'r', encoding='utf-8') as f:
 
 # 2. No need to copy assets (we are in root)
 
-# 3. Generate Index Page
-print('Generating index.html...')
-
-# Generate Game Cards HTML
-games_html_list = []
-for game in games:
-    category = game.get('category', 'Arcade')
-    name = game.get('name', 'Unknown')
-    slug = game.get('slug', 'unknown')
-    image = game.get('image', '')
+# 3. Helper to Generate Grid Pages
+def generate_grid_page(games_list, page_title, output_filename, active_nav=''):
+    print(f'Generating {output_filename}...')
     
-    card_html = f'''
-  <a href="./games/{slug}.html" class="game-card" style="animation: fadeIn 0.5s ease;">
-    <div class="card-image">
-      <img src="{image}" alt="{name}" loading="lazy" />
-      <div class="card-overlay">
-        <span class="play-icon">▶</span>
-      </div>
-    </div>
-    <div class="card-info">
-      <h3>{name}</h3>
-      <span class="category">{category}</span>
-    </div>
-  </a>
-'''
-    games_html_list.append(card_html)
+    games_html_list = []
+    for game in games_list:
+        category = game.get('category', 'Arcade')
+        name = game.get('name', 'Unknown')
+        slug = game.get('slug', 'unknown')
+        image = game.get('image', '')
+        
+        card_html = f'''
+      <a href="./games/{slug}.html" class="game-card" style="animation: fadeIn 0.5s ease;">
+        <div class="card-image">
+          <img src="{image}" alt="{name}" loading="lazy" />
+          <div class="card-overlay">
+            <span class="play-icon">▶</span>
+          </div>
+        </div>
+        <div class="card-info">
+          <h3>{name}</h3>
+          <span class="category">{category}</span>
+        </div>
+      </a>
+    '''
+        games_html_list.append(card_html)
 
-games_grid_html = ''.join(games_html_list)
+    games_grid_html = ''.join(games_html_list)
 
-home_page_html = f'''
-  <section class="home-page">
-    <header class="page-header">
-      <h2>All Games</h2>
-      <div class="search-bar">
-        <input type="text" placeholder="Search games..." />
-      </div>
-    </header>
-    <div class="games-grid">
-      {games_grid_html}
-    </div>
-  </section>
-'''
+    page_html = f'''
+      <section class="home-page">
+        <header class="page-header">
+          <h2>{page_title}</h2>
+          <div class="search-bar">
+            <input type="text" placeholder="Search games..." />
+          </div>
+        </header>
+        <div class="games-grid">
+          {games_grid_html}
+        </div>
+      </section>
+    '''
 
+    page_content = template.replace(
+        '<main id="main-content" class="main-content">\n        <!-- Content will be injected here -->\n      </main>',
+        f'<main id="main-content" class="main-content">{page_html}</main>'
+    )
+    
+    # Set Active Nav State
+    # Note: This is simple string replacement, might be brittle if classes change
+    if active_nav == 'home':
+         page_content = page_content.replace('href="./index.html" class="nav-item"', 'href="./index.html" class="nav-item active"')
+    elif active_nav == 'popular':
+         page_content = page_content.replace('href="./popular.html" class="nav-item"', 'href="./popular.html" class="nav-item active"')
+    elif active_nav == 'new':
+         page_content = page_content.replace('href="./new.html" class="nav-item"', 'href="./new.html" class="nav-item active"')
 
-index_content = template.replace(
-    '<main id="main-content" class="main-content">\n        <!-- Content will be injected here -->\n      </main>',
-    f'<main id="main-content" class="main-content">{home_page_html}</main>'
-)
-with open(os.path.join(BASE_DIR, 'index.html'), 'w', encoding='utf-8') as f:
-    f.write(index_content)
+    with open(os.path.join(BASE_DIR, output_filename), 'w', encoding='utf-8') as f:
+        f.write(page_content)
+
+# Generate Home (Default Order)
+generate_grid_page(games, 'All Games', 'index.html', active_nav='home')
+
+# Generate Popular (Shuffle)
+import random
+popular_games = games.copy()
+random.shuffle(popular_games)
+generate_grid_page(popular_games, 'Popular Games', 'popular.html', active_nav='popular')
+
+# Generate New (Reverse Order)
+new_games = games.copy()
+new_games.reverse()
+generate_grid_page(new_games, 'New Games', 'new.html', active_nav='new')
 
 
 # 4. Generate Game Pages
@@ -133,6 +156,8 @@ for game in games:
     
     # Fix Sidebar Links for subdirectory
     page_content = page_content.replace('href="./index.html"', 'href="../index.html"')
+    page_content = page_content.replace('href="./popular.html"', 'href="../popular.html"')
+    page_content = page_content.replace('href="./new.html"', 'href="../new.html"')
 
     with open(os.path.join(GAMES_DIR, f'{slug}.html'), 'w', encoding='utf-8') as f:
         f.write(page_content)
