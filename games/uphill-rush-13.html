@@ -77,110 +77,26 @@
       </aside>
 
       <main id="main-content" class="main-content">
-  <section class="player-layout">
-      <div class="player-main">
-        <div class="player-header">
-          <a href="../index.html" class="btn-back">
-            <span class="icon">arrow_back</span> Back
-          </a>
-          <h2>Uphill Rush 13</h2>
-        </div>
-        
-        <div class="game-wrapper">
-          <div class="iframe-container">
-             <iframe 
-               src="https://html5.gamedistribution.com/c084653fe0b3484681d9b268663675bf/" 
-               id="game-frame" 
-               frameborder="0" 
-               scrolling="no" 
-               allowfullscreen 
-               referrerpolicy="no-referrer" 
-               style="width: 100%; height: 100%; background: white;"
-               sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-pointer-lock allow-top-navigation-by-user-activation"
-               allow="autoplay; fullscreen; monetization; clipboard-write; web-share; accelerometer; magnetometer; gyroscope; display-capture">
-            </iframe>
-          </div>
-          <div class="game-controls">
-            <button id="btn-fullscreen" class="control-btn" onclick="const iframe = document.getElementById('game-frame'); if(iframe.requestFullscreen) iframe.requestFullscreen();">
-              <span class="icon">fullscreen</span> Fullscreen
-            </button>
-             <div class="rating">
-                <span class="icon">❤️</span> 95%
-             </div>
-          </div>
-        </div>
+        <!-- Content will be injected here -->
 
-        <div class="game-info">
-          <h3>About Uphill Rush 13</h3>
-          <p>Race through water parks and roller coasters in Uphill Rush 13. Perform stunts, collect coins, and finish the course as fast as possible.</p>
-          
-          <div class="instructions">
-             <h3>How to Play</h3>
-             <ul>
-               <li>Click "Play" to start.</li>
-               <li>Use Mouse or Keyboard to control.</li>
-               <li>Complete objectives and earn high scores!</li>
-             </ul>
+        <footer class="site-footer"
+          style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+          <div class="footer-col">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Legal</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="./privacy.html" style="color: var(--color-text-dim); text-decoration: none;">Privacy Policy</a>
+              <a href="./terms.html" style="color: var(--color-text-dim); text-decoration: none;">Terms of Service</a>
+              <a href="./contact.html" style="color: var(--color-text-dim); text-decoration: none;">Contact Us</a>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <aside class="player-sidebar">
-        <h3>You May Also Like</h3>
-        <div class="related-games-list">
-          
-            <a href="../games/zig-snake.html" class="related-card">
-              <img src="../public/cache/data/image/game/zig-snake/zig-snake.jpg" alt="Zig Snake" loading="lazy" />
-              <div class="info">
-                <h4>Zig Snake</h4>
-                <span>Arcade</span>
-              </div>
-            </a>
-        
-            <a href="../games/obby-on-a-bike.html" class="related-card">
-              <img src="../public/cache/data/image/game/obby-on-a-bike/obby-on-a-bike.jpg" alt="Obby On a Bike" loading="lazy" />
-              <div class="info">
-                <h4>Obby On a Bike</h4>
-                <span>Arcade</span>
-              </div>
-            </a>
-        
-            <a href="../games/doges-battle-royale.html" class="related-card">
-              <img src="../public/cache/data/image/game/doges-battle-royale/doges-battle-royale.jpg" alt="Doge's Battle Royale" loading="lazy" />
-              <div class="info">
-                <h4>Doge's Battle Royale</h4>
-                <span>Arcade</span>
-              </div>
-            </a>
-        
-            <a href="../games/hidden-easter-egg-hunt.html" class="related-card">
-              <img src="../public/cache/data/image/game/hidden-easter-egg-hunt/hidden-easter-egg-hunt.jpg" alt="Hidden Easter Egg Hunt" loading="lazy" />
-              <div class="info">
-                <h4>Hidden Easter Egg Hunt</h4>
-                <span>Arcade</span>
-              </div>
-            </a>
-        
-            <a href="../games/parkour-block-7.html" class="related-card">
-              <img src="../public/cache/data/image/game/parkour-block-7/parkour-block-7.jpg" alt="Parkour Block 7" loading="lazy" />
-              <div class="info">
-                <h4>Parkour Block 7</h4>
-                <span>Arcade</span>
-              </div>
-            </a>
-        
-            <a href="../games/capybara-suika.html" class="related-card">
-              <img src="../public/cache/data/image/game/capybara-suika/capybara-suika.jpg" alt="Capybara Suika" loading="lazy" />
-              <div class="info">
-                <h4>Capybara Suika</h4>
-                <span>Arcade</span>
-              </div>
-            </a>
-        
-        </div>
-      </aside>
-    </section>
-</main>
+          <div class="footer-col">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">About</h4>
+            <p style="color: var(--color-text-dim); font-size: 0.9rem; line-height: 1.6;">
+              Modern Game Portal offers the best free online games. optimized for all devices.
+            </p>
+          </div>
+        </footer>
+      </main>
     </div>
   </div>
   <script type="module" src="../src/main.js"></script>

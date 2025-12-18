@@ -111,6 +111,17 @@ def generate_grid_page(games_list, page_title, output_filename, active_nav='', s
     with open(os.path.join(BASE_DIR, output_filename), 'w', encoding='utf-8') as f:
         f.write(page_content)
 
+# 3.6 Generate ads.txt
+def generate_ads_txt():
+    print('Generating ads.txt...')
+    # Standard placeholder content - replaced with user's specific details later
+    content = "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0"
+    with open(os.path.join(BASE_DIR, 'ads.txt'), 'w', encoding='utf-8') as f:
+        f.write(content)
+
+generate_ads_txt()
+
+
 # Generate Home (Default Order)
 generate_grid_page(games, 'All Games', 'index.html', active_nav='home', 
                    seo_title="Modern Game Portal - Play Best Free Online Games",

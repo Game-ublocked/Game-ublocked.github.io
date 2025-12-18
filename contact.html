@@ -77,22 +77,26 @@
       </aside>
 
       <main id="main-content" class="main-content">
-      <section class="content-page" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
-        <header class="page-header">
-          <h2>Contact Us</h2>
-        </header>
-        <div class="glass-panel" style="background: var(--glass); padding: 2rem; border-radius: var(--radius); border: 1px solid var(--glass-border);">
-          
-<h3>Get in Touch</h3>
-<p>We'd love to hear from you! Whether you have a game suggestion, bug report, or just want to say hi.</p>
-<div style="margin-top: 2rem;">
-    <p><strong>Email:</strong> support@example.com</p>
-    <p><strong>Twitter:</strong> @GamePortal</p>
-</div>
+        <!-- Content will be injected here -->
 
-        </div>
-      </section>
-    </main>
+        <footer class="site-footer"
+          style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+          <div class="footer-col">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Legal</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="./privacy.html" style="color: var(--color-text-dim); text-decoration: none;">Privacy Policy</a>
+              <a href="./terms.html" style="color: var(--color-text-dim); text-decoration: none;">Terms of Service</a>
+              <a href="./contact.html" style="color: var(--color-text-dim); text-decoration: none;">Contact Us</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">About</h4>
+            <p style="color: var(--color-text-dim); font-size: 0.9rem; line-height: 1.6;">
+              Modern Game Portal offers the best free online games. optimized for all devices.
+            </p>
+          </div>
+        </footer>
+      </main>
     </div>
   </div>
   <script type="module" src="./src/main.js"></script>
