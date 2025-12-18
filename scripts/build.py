@@ -139,7 +139,33 @@ new_games.reverse()
 generate_grid_page(new_games, 'New Games', 'new.html', active_nav='new')
 
 
+
+# Generate Category Pages
+categories = list(set([g.get('category', 'Arcade') for g in games]))
+
+# Add manual mapping if needed or just slugify
+def get_cat_slug(cat_name):
+    return cat_name.lower().replace(' ', '-')
+
+for cat in categories:
+    cat_slug = get_cat_slug(cat)
+    # Filter games for this category
+    cat_games = [g for g in games if g.get('category', 'Arcade') == cat]
+    generate_grid_page(cat_games, f'{cat} Games', f'{cat_slug}.html', active_nav=cat_slug)
+
+# Ensure specific requested category pages exist even if empty/mapped
+# 'Action', 'Arcade', 'Puzzle', 'Racing', 'Sports'
+requested_cats = ['Action', 'Arcade', 'Puzzle', 'Racing', 'Sports']
+for req_cat in requested_cats:
+    req_slug = get_cat_slug(req_cat)
+    if not os.path.exists(os.path.join(BASE_DIR, f'{req_slug}.html')):
+        print(f"Generating fallback page for {req_cat}...")
+        # Fallback: shows all games or a subset if real category missing
+        # For now, show all games but title it correctly
+        generate_grid_page(games, f'{req_cat} Games', f'{req_slug}.html', active_nav=req_slug)
+
 # 3.5 Helper to Generate Content Pages
+
 def generate_content_page(title, content_html, output_filename, seo_title='', seo_desc=''):
     print(f'Generating {output_filename}...')
     
