@@ -12,7 +12,8 @@ async function init() {
   if (path.includes('privacy') ||
     path.includes('terms') ||
     path.includes('about') ||
-    path.includes('contact')) {
+    path.includes('contact') ||
+    path.includes('/games/')) {
     console.log('Static page detected, skipping SPA init');
     return;
   }
