@@ -311,12 +311,14 @@ for game in games:
         continue
 
     # Determine URL: Check if local folder exists with index.html
-    # We look for a folder named '{slug}_files' inside games directory
-    # OR we look for the old public/games style if applicable, but we prefer checking GAMES_DIR
-    local_game_index = os.path.join(GAMES_DIR, f"{slug}_files", "index.html")
+    # We look for a folder named '{slug}_files' OR just '{slug}' inside games directory
+    local_game_index_files = os.path.join(GAMES_DIR, f"{slug}_files", "index.html")
+    local_game_index_dir = os.path.join(GAMES_DIR, slug, "index.html")
     
-    if os.path.exists(local_game_index):
+    if os.path.exists(local_game_index_files):
         game_url = f"{slug}_files/index.html"
+    elif os.path.exists(local_game_index_dir):
+        game_url = f"{slug}/index.html"
     else:
         game_url = f"https://html5.gamedistribution.com/{game_id}/"
 
