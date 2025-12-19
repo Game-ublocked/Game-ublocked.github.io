@@ -8,15 +8,15 @@ export function renderHeader() {
         <h1>ublocked games</h1>
       </div>
       <nav class="nav-menu">
-        <a href="#/" class="nav-item">
+        <a href="./index.html" class="nav-item">
           <span class="icon">🏠</span>
           <span>Home</span>
         </a>
-        <a href="#/popular" class="nav-item">
+        <a href="./popular.html" class="nav-item">
           <span class="icon">🔥</span>
           <span>Popular</span>
         </a>
-        <a href="#/new" class="nav-item">
+        <a href="./new.html" class="nav-item">
           <span class="icon">✨</span>
           <span>New</span>
         </a>
