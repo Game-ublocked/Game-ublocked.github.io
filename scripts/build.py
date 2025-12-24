@@ -26,7 +26,7 @@ with open(TEMPLATE_FILE, 'r', encoding='utf-8') as f:
 
 # Sitemap Storage
 sitemap_urls = []
-base_url = "https://pingwin-w.github.io/GameBLOCK.github.io"
+base_url = "https://unblocked-classroom-game.github.io"
 
 # 2. No need to copy assets (we are in root)
 
