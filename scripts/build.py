@@ -30,6 +30,10 @@ base_url = "https://pingwin-w.github.io/GameBLOCK.github.io"
 
 # 2. No need to copy assets (we are in root)
 
+# Helper: Generate JSON-LD
+def generate_json_ld(data):
+    return f'<script type="application/ld+json">\n{json.dumps(data, indent=2)}\n</script>'
+
 # 3. Helper to Generate Grid Pages
 def generate_grid_page(games_list, page_title, output_filename, active_nav='', seo_title='', seo_desc=''):
     print(f'Generating {output_filename}...')
@@ -127,11 +131,57 @@ def generate_grid_page(games_list, page_title, output_filename, active_nav='', s
     if '/' in output_filename or '\\' in output_filename:
          search_script = '<script src="../src/static-search.js" defer></script>'
 
+    # JSON-LD Schemas for Grid Pages
+    schemas = []
+    
+    # 1. WebSite Schema (Only for index.html)
+    if output_filename == 'index.html':
+        schemas.append({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Modern Game Portal",
+            "url": base_url,
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": f"{base_url}/index.html?q={{search_term_string}}",
+                "query-input": "required name=search_term_string"
+            }
+        })
+    
+    # 2. BreadcrumbList Schema
+    # Initial breadcrumb
+    breadcrumbs = [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": f"{base_url}/index.html"
+        }
+    ]
+    
+    # If not home, add current page
+    if output_filename != 'index.html':
+         breadcrumbs.append({
+            "@type": "ListItem",
+            "position": 2,
+            "name": page_title,
+            "item": seo_url
+        })
+
+    schemas.append({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs
+    })
+    
+    # Inject Schemas into Head
+    json_ld_scripts = '\n'.join([generate_json_ld(s) for s in schemas])
+    page_content = page_content.replace('</head>', f'{json_ld_scripts}\n</head>')
+
     page_content = page_content.replace('</body>', f'{search_script}\n</body>')
 
     with open(os.path.join(BASE_DIR, output_filename), 'w', encoding='utf-8') as f:
         f.write(page_content)
-
 # 3.6 Generate ads.txt
 def generate_ads_txt():
     # Deprecated: Do not regenerate ads.txt as it contains user ID now
@@ -461,6 +511,68 @@ for game in games:
     # REMOVE main.js for game pages
     page_content = page_content.replace('<script type="module" src="./src/main.js"></script>', '')
     page_content = page_content.replace('<script type="module" src="../src/main.js"></script>', '')
+
+    # JSON-LD Schemas for Game Pages
+    schemas = []
+    
+    # 1. BreadcrumbList Schema
+    cat_name = game.get('category', 'Arcade')
+    cat_slug = cat_name.lower().replace(' ', '-')
+    
+    breadcrumbs = [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": f"{base_url}/index.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": cat_name,
+            "item": f"{base_url}/{cat_slug}.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": name,
+            "item": full_page_url
+        }
+    ]
+
+    schemas.append({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs
+    })
+    
+    # 2. VideoGame Schema
+    schemas.append({
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": name,
+        "description": g_desc,
+        "image": full_image_url,
+        "url": full_page_url,
+        "genre": cat_name,
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "author": {
+             "@type": "Organization",
+             "name": "Modern Game Portal"
+        }
+    })
+    
+    # Inject Schemas into Head
+    json_ld_scripts = '\n'.join([generate_json_ld(s) for s in schemas])
+    page_content = page_content.replace('</head>', f'{json_ld_scripts}\n</head>')
 
     with open(os.path.join(GAMES_DIR, f'{slug}.html'), 'w', encoding='utf-8') as f:
         f.write(page_content)
